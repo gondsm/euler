@@ -1,15 +1,16 @@
-//Problema: encontrar o maior produto de 5 digitos seguidos num numero de 1000 digitos
 #include <iostream>
 #include <fstream>
 using namespace std;
 
 int main(){
+	// Number is stored in an ASCII file:
 	int supanumba[1000];
 	ifstream numba;
 	numba.open("supanumba.txt");
 	for(int i = 0; i < 1000; i++)
 		supanumba[i] = (numba.get() - 48);
 
+	// Find largest product of 5 consecutive digits:
 	int mult = 0;
 	for(int i = 0; i < 1000; i++){
 		int aux = supanumba[i];
@@ -19,6 +20,6 @@ int main(){
 		if(aux > mult) mult = aux;
 	}
 
-	std::cout << "O maior produto de 5 digitos e : " << mult << std::endl;
+	std::cout << "The largest prodct of 5 consecutive digits is: " << mult << std::endl;
 	return 0;
 }
