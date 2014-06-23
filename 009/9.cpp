@@ -1,4 +1,3 @@
-//resolvido!
 #include <iostream>
 #define square(x) (x)*(x)
 using namespace std;
@@ -9,7 +8,7 @@ int main(){
 		for(b = a+1; b < ((1000-a)/2)+1; b++){
 			c = 1000 - a - b;
 			if(square(a) + square(b) == square(c)){
-				cout << "Achei!" << endl << "a = ";
+				cout << "Found it!" << endl << "a = ";
 				cout << a << "\nb = " << b << "\nc = " << c;
 				cout << "\nabc = " << a*b*c << endl;			
 			}
