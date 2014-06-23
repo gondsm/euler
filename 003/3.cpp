@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-bool verifica(int n){
+bool verify_prime(int n){
 	if(n == 2) return true;
 	if(n == 0 || n == 1) return false;
 	for(int i = 2; i < n; i++){
@@ -13,23 +13,23 @@ bool verifica(int n){
 int main(){
 	unsigned long long int supanumba = 600851475143;
 	//int supanumba = 6;
-	/*Preenche uma tabela com numeros primos*/
-	int primos[1000];
+	/*Build a table of prime numbers*/
+	int primes[1000];
 	int spot = 0;
 	for(int i = 0; spot < 1000; i++)
-		if(verifica(i)){
-		primos[spot] = i;
+		if(verify_prime(i)){
+		primes[spot] = i;
 		spot++;
 		} 
-	spot = 0; //Por esta altura, primos[] deverá ter 20 números primos.
+	spot = 0;
 	/**/
 
 	for(int i = 0; supanumba != 1; i++){
-		if(supanumba % primos[spot] == 0){
-			supanumba = supanumba / primos[spot];
+		if(supanumba % primes[spot] == 0){
+			supanumba = supanumba / primes[spot];
 		}
 		else spot++;
 	} 	
-	cout << "O maior factor primo de 600851475143 e " << primos[spot] << endl;
+	cout << "The largest prime factor of 600851475143 e " << primes[spot] << endl;
 	return 0;
 }
