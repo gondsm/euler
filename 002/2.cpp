@@ -8,10 +8,10 @@ int fibonacci(long int n){
 }
 
 int main(){
-	int soma = 0;
+	int sum = 0;
 	for(int i = 0; fibonacci(i) < 4000000; i++){
 		long int x = fibonacci(i);
-		if(x % 2 == 0) soma = soma + x;
+		if(x % 2 == 0) sum += x;
 	}
-	cout << "\nO valor da soma de todos os valores pares da sequencia de fibonacci menores que 4 milhoes e: " << soma << endl;
+	cout << "\nThe sum of all Fibonacci numbers smaller than 4 millions is: " << sum << endl;
 }
