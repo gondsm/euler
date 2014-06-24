@@ -23,14 +23,12 @@ class SieveOfErastothenes:
         while(is_prime == False):
             is_prime = True
             current = self.in_buffer.popleft()
-            print(current)
             for prime, value in self.iterators.iteritems():
                 if current == value:
                     self.iterators[prime] += prime
                     is_prime = False
             if(len(self.in_buffer) == 1):
                 self.generateInput()
-                is_prime = False
                 
         self.primes.append(current)
         self.iterators[current] = current*current
@@ -53,40 +51,86 @@ class SieveOfErastothenes:
         # Populate the input buffer
         last = self.in_buffer.popleft()
         self.in_buffer.extend(range(last, last+101))
-        print("Last value was " + str(last) + ".")
-        print("Inputting values from " + str(last) + " to " + str(last+100))
+
+    # Returns the next prime
+    def getPrime(self):
+        if(self.index) >= (len(self.primes)):
+            self.index += 1            
+            return self.generatePrime()
+        else:
+            self.index += 1
+            return self.primes[self.index-1]
+
+    def resetPrime(self):
+        self.index = 0
+
+    # Returns whether the given value is a prime number
+    def isPrime(self, n):
+        if(len(self.primes) == 0):
+            self.generatePrime()
+        while(self.primes[-1] < n):
+            self.generatePrime()
+        if(n in self.iterators):
+            return True
+        else:
+            return False
 
     # Constructor
     def __init__(self):
         # Initialize stuff
-        #self.starter_primes = [2, 3, 5, 7]
+        self.index = 0
         self.in_buffer = deque(range(2,101))
         self.primes = []
         self.wheel = []
         self.iterators = {prime: prime*prime for prime in self.primes}
 
 
-#def numDivisors(n):
+# Calculates the product of a list
+def product(list):
+    p = 1
+    for i in list:
+        p *= i
+    return p
+
+# Determines the number of divisors via prime number factorization
+def numDivisors(n):#, sieve):
+    #sieve.resetPrime
+    sieve = SieveOfErastothenes()
+    composite = n
+    exponents = [0]
+    current_prime = sieve.getPrime()
+    ever_divided = False
+    while(composite != 1):
+        if composite % current_prime == 0:
+            composite /= current_prime
+            exponents[-1] += 1
+            ever_divided = True
+        else:
+            if ever_divided == True:
+                exponents[-1] += 1
+                exponents.append(0)
+                ever_divided = False
+            current_prime = sieve.getPrime()
+    exponents[-1] += 1
+    return product(exponents)
 
 
-
+# Gets our answer
 def loop():
     i = 1
     current_number = 0
     num = 0
+    current_max = 0
     while(num < 500):
         current_number += i
         i += 1
         num = numDivisors(current_number)
-        print(str(num))
-    print("I think I found something: " + str(num))
+        if num > current_max:
+            current_max = num
+        print(current_number, num, current_max)
+    print("I think I found something: " + str(current_number))
     
 sieve = SieveOfErastothenes()
-
-for i in range(50):
-    sieve.generatePrime()
-    #print(sieve.getIterators())
-    
-unique = set(sieve.getPrimes())
-print(sieve.getPrimes())
-print(len(unique))
+loop()
+#for i in xrange(1,10):
+#    print(i,numDivisors(i))
