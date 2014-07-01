@@ -2,14 +2,13 @@
 """
 Created on Mon Jun 23 15:56:41 2014
 
-AINDA EXISTE UM ERRO, VER CADERNO
-
 @author: Gonçalo Martins
 """
 
 from __future__ import print_function
 from __future__ import division
 from collections import deque
+import time
 
 # Class that implements the Sieve of Erastothenes
 # Implements the incremental algorithm described in "The Genuine Sieve of
@@ -127,10 +126,13 @@ def loop():
         num = numDivisors(current_number)
         if num > current_max:
             current_max = num
-        print(current_number, num, current_max)
-    print("I think I found something: " + str(current_number))
+        #print(current_number, num, current_max)
+    print("I think I've found something: " + str(current_number))
     
 sieve = SieveOfErastothenes()
+start = time.time()
 loop()
+elapsed = (time.time() - start)
+print("We took {} seconds to compute an answer.".format(elapsed))
 #for i in xrange(1,10):
 #    print(i,numDivisors(i))
